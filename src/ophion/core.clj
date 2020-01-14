@@ -4,7 +4,6 @@
    [clojure.java.io :as io]
    [manifold.stream :as stream]
    [aleph.http :as http]
-   ;; [org.httpkit.server :as http]
    [cheshire.core :as json]
    [taoensso.timbre :as log]
    [ring.middleware.resource :as resource]
@@ -13,7 +12,6 @@
    [polaris.core :as polaris]
    [protograph.template :as protograph]
    [ophion.config :as config]
-   [ophion.db :as db]
    [ophion.query :as query]
    [ophion.search :as search]
    [ophion.mongo :as mongo]
@@ -22,11 +20,6 @@
   (:import
    [java.io InputStreamReader]
    [ch.qos.logback.classic Logger Level]))
-
-;; (.setLevel
-;;  (org.slf4j.LoggerFactory/getLogger
-;;   (Logger/ROOT_LOGGER_NAME))
-;;  Level/INFO)
 
 (defn read-json
   [body]
@@ -40,7 +33,6 @@
   (comp
    append-newline
    json/generate-string))
-   ;; query/translate
 
 (defn default-graph
   []
@@ -95,18 +87,6 @@
     {:status 200
      :headers {"content-type" "application/json"}
      :body source}))
-
-;; (defn vertex-query-handler-straight
-;;   [graph search cache request]
-;;   (let [raw-query (json/parse-stream (InputStreamReader. (:body request)) keyword)
-;;         query (query/delabelize raw-query)
-;;         _ (log/info (mapv identity query))
-;;         out (check-query-cache graph search cache query)]
-;;     (db/commit graph)
-;;     (db/rollback graph)
-;;     {:status 200
-;;      :headers {"content-type" "application/json"}
-;;      :body out}))
 
 (defn find-edge-handler
   [graph request]

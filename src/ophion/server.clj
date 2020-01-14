@@ -13,20 +13,10 @@
    [polaris.core :as polaris]
    [protograph.template :as protograph]
    [ophion.config :as config]
-   [ophion.db :as db]
-   [ophion.query :as query]
-   [ophion.search :as search]
    [ophion.mongo :as mongo]
-   [ophion.store :as store]
    [ophion.aggregate :as aggregate])
   (:import
-   [java.io InputStreamReader]
-   [ch.qos.logback.classic Logger Level]))
-
-;; (.setLevel
-;;  (org.slf4j.LoggerFactory/getLogger
-;;   (Logger/ROOT_LOGGER_NAME))
-;;  Level/INFO)
+   [java.io InputStreamReader]))
 
 (defn read-json
   [body]
@@ -136,5 +126,4 @@
   [& args]
   (let [env (:options (cli/parse-opts args parse-args))]
     (start env)
-    (while true
-      (Thread/sleep 1111))))
+    @(promise)))

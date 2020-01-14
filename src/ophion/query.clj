@@ -4,7 +4,6 @@
    [clojure.string :as string]
    [cheshire.core :as json]
    [taoensso.timbre :as log]
-   [ophion.db :as db]
    [ophion.search :as search])
   (:import
    [org.apache.tinkerpop.gremlin.structure
@@ -336,7 +335,7 @@
   (let [vertex (.addVertex graph label)]
     (set-property! vertex :gid gid)
     (set-properties! vertex data)
-    (db/commit graph)
+    (.. graph tx commit)
     vertex))
 
 (defn find-vertex
@@ -390,7 +389,7 @@
             in-vertex (get-vertex graph to-label to)
             edge (.addEdge out-vertex (name label) in-vertex (into-array []))]
         (set-properties! edge (assoc data :gid gid))
-        (db/commit graph)
+        (.. graph tx commit)
         edge))))
 
 (defn add-vertex!
