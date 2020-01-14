@@ -1,10 +1,10 @@
-(defproject ophion "0.1.0"
+(defproject ophion "0.1.1"
   :description "graph queries as data"
   :url "http://github.com/prismofeverything/ophion"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.10.0"]
-                 [aleph "0.4.3"]
+                 [aleph "0.4.6"]
                  [polaris "0.0.19"]
                  [cheshire "5.7.1"]
                  [com.taoensso/timbre "4.8.0"]
